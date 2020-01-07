@@ -24,6 +24,8 @@ from machine import RTC, Pin
 from time import sleep
 
 rtc = RTC()
+food = Pin(5, Pin.OUT)
+grill = Pin(4, Pin.OUT)
 led = Pin(9, Pin.OUT)
 switch_pin = Pin(10, Pin.IN)
 temp_pin = machine.ADC(0)
@@ -69,11 +71,16 @@ def switch():
 
 def get_food_temp():
     """returns foote temp"""
-    return 250
+    grill.value(0)
+    food.value(1)
+    return temp_pin.read()
+
 
 def get_grill_temp():
     """returns grill temp"""
-    return 255
+    food.value(0)
+    grill.value(1)
+    return temp_pin.read()
 
 def temperature():
     """measures the value of temp from our sensor"""
