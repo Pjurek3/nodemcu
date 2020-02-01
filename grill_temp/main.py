@@ -85,9 +85,15 @@ def get_grill_temp():
 def temperature():
     """measures the value of temp from our sensor"""
     # get food temp
-    food_temp = get_food_temp()
-    # get grill temp
-    grill_temp = get_grill_temp()
+    food_temps = []
+    grill_temps = []
+    for i in range(20):
+        food_temps.append(get_food_temp())
+        # get grill temp
+        grill_temps.append(get_grill_temp())
+    
+    food_temp = sum(food_temps)/len(food_temps)
+    grill_temp = sum(grill_temps)/len(grill_temps)
     # return results
     body = "{food_temp: " + str(food_temp) + ", grill_temp: " + str(grill_temp) +  "}"
     return response_template % body
